@@ -32,6 +32,8 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<goals>install</goals>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<arguments>-Dmaven.javadoc.skip=true</arguments>
 				</configuration>
 			</plugin>
 		</plugins>
