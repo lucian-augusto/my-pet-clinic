@@ -6,7 +6,7 @@
 
 	<groupId>com.lucianaugusto</groupId>
 	<artifactId>my-pet-clinic</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>my-pet-clinic</name>
@@ -23,15 +23,18 @@
 		<java.version>11</java.version>
 	</properties>
 
-	<dependencies>
-
-	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<goals>install</goals>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -40,4 +43,8 @@
 		<module>pet-clinic-data</module>
 		<module>pet-clinic-web</module>
 	</modules>
+	
+	<scm>
+		<developerConnection>scm:git:git@github.com:lucian-augusto/my-pet-clinic.git</developerConnection>
+	</scm>
 </project>
