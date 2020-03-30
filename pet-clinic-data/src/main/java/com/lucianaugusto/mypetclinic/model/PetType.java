@@ -1,8 +1,8 @@
 package com.lucianaugusto.mypetclinic.model;
 
-public class PetType {
+public class PetType extends BaseEntity {
 
-//	Properties
+//	Fields
 	private String name;
 
 	
