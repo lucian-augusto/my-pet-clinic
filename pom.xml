@@ -4,7 +4,7 @@
 
 	<groupId>com.lucianaugusto</groupId>
 	<artifactId>my-pet-clinic</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.4</version>
 	<packaging>pom</packaging>
 
 	<name>my-pet-clinic</name>
@@ -46,6 +46,6 @@
 	
 	<scm>
 		<developerConnection>scm:git:git@github.com:lucian-augusto/my-pet-clinic.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>my-pet-clinic-0.0.4</tag>
   </scm>
 </project>
