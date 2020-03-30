@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.lucianaugusto.mypetclinic.MyPetClinicApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.382 s - in com.lucianaugusto.mypetclinic.MyPetClinicApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.867 s - in com.lucianaugusto.mypetclinic.MyPetClinicApplicationTests
