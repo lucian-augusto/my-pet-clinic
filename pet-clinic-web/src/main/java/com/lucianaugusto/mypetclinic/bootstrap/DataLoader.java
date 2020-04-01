@@ -16,9 +16,11 @@ public class DataLoader implements CommandLineRunner {
 	private final OwnerService ownerService;
 	private final VetService vetService;
 
-	public DataLoader() {
-		ownerService = new OwnerServiceMap();
-		vetService = new VetServiceMap();
+	public DataLoader(OwnerService ownerService, VetService vetService) { // Takes any implementations of both interfaces and
+		// bring them into the context by using Spring to inject the dependencies. Constructor-based Dependency Injection,
+		// doesn't require the @Autowired annotation.
+		this.ownerService = ownerService;
+		this.vetService = vetService;
 	}
 
 	@Override
