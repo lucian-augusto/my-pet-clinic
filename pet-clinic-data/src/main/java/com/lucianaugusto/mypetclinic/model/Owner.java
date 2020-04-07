@@ -1,5 +1,6 @@
 package com.lucianaugusto.mypetclinic.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Owner extends Person {
@@ -7,8 +8,8 @@ public class Owner extends Person {
 //	Fields
 	private String address;
 	private String city;
-	private String telephoneString;
-	private Set<Pet> pets;
+	private String telephone;
+	private Set<Pet> pets = new HashSet<Pet>(); // Initializing the Set of Pets with a default value to avoid null pointer errors
 	
 //	Getters and Setters
 	public String getAddress() {
@@ -23,11 +24,11 @@ public class Owner extends Person {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getTelephoneString() {
-		return telephoneString;
+	public String getTelephone() {
+		return telephone;
 	}
-	public void setTelephoneString(String telephoneString) {
-		this.telephoneString = telephoneString;
+	public void setTelephone(String telephoneString) {
+		this.telephone = telephoneString;
 	}
 	public Set<Pet> getPets() {
 		return pets;

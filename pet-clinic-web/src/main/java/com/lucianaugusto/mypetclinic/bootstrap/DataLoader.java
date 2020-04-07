@@ -1,16 +1,17 @@
 package com.lucianaugusto.mypetclinic.bootstrap;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.lucianaugusto.mypetclinic.model.Owner;
+import com.lucianaugusto.mypetclinic.model.Pet;
 import com.lucianaugusto.mypetclinic.model.PetType;
 import com.lucianaugusto.mypetclinic.model.Vet;
 import com.lucianaugusto.mypetclinic.services.OwnerService;
 import com.lucianaugusto.mypetclinic.services.PetTypeService;
 import com.lucianaugusto.mypetclinic.services.VetService;
-import com.lucianaugusto.mypetclinic.services.map.OwnerServiceMap;
-import com.lucianaugusto.mypetclinic.services.map.VetServiceMap;
 
 @Component // By annotating this as a component, this becomes a spring bean and gets registered into the spring context
 public class DataLoader implements CommandLineRunner {
@@ -29,17 +30,47 @@ public class DataLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+//		PetType data loader
+		PetType dog = new PetType();
+		dog.setName("Dog");
+		PetType saveDogPetType = petTypeService.save(dog);
+		
+		PetType cat = new PetType();
+		cat.setName("Cat");
+		PetType saveCaPetType = petTypeService.save(cat);
+		
+		System.out.println("Loaded PetTypes...");
 		
 //		Owner Data Loader
 		Owner owner1 = new Owner();
 		owner1.setFirstName("Michael");
 		owner1.setLastName("Weston");
+		owner1.setAddress("111 Pandosy ");
+		owner1.setCity("Kelowna");
+		owner1.setTelephone("+1 (123) 123 1234");
+		
+		Pet mikesPet = new Pet();
+		mikesPet.setPetType(saveDogPetType);
+		mikesPet.setOwner(owner1);
+		mikesPet.setBirthDate(LocalDate.now());
+		mikesPet.setName("Cacau");
+		owner1.getPets().add(mikesPet);
 		
 		ownerService.save(owner1);
 		
 		Owner owner2 = new Owner();
 		owner2.setFirstName("Fiona");
 		owner2.setLastName("Glenanne");
+		owner2.setAddress("111 Pandosy ");
+		owner2.setCity("Kelowna");
+		owner2.setTelephone("+1 (123) 123 1234");
+		
+		Pet fionasCat = new Pet();
+		fionasCat.setName("Zeus");
+		fionasCat.setOwner(owner2);
+		fionasCat.setBirthDate(LocalDate.now());
+		fionasCat.setPetType(saveCaPetType);
+		owner2.getPets().add(fionasCat);
 		
 		ownerService.save(owner2);
 		
@@ -60,16 +91,7 @@ public class DataLoader implements CommandLineRunner {
 		
 		System.out.println("Loaded Vets...");
 		
-//		PetType data loader
-		PetType dog = new PetType();
-		dog.setName("Dog");
-		PetType saveDogPetType = petTypeService.save(dog);
-		
-		PetType cat = new PetType();
-		cat.setName("Cat");
-		PetType saveCaPetType = petTypeService.save(cat);
-		
-		System.out.println("Loaded PetTypes...");
+
 		
 	}
 	
