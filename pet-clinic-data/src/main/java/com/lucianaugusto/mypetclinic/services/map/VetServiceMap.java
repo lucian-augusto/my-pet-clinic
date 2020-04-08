@@ -4,13 +4,22 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.lucianaugusto.mypetclinic.model.Speciality;
 import com.lucianaugusto.mypetclinic.model.Vet;
+import com.lucianaugusto.mypetclinic.services.SpecialityService;
 import com.lucianaugusto.mypetclinic.services.VetService;
 
 @Service // Using service and not @Component because it clearly states the behaviour of this service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
-
-	@Override
+	
+	private final SpecialityService specialityService;
+	
+	public VetServiceMap(SpecialityService specialityService) {
+		this.specialityService = specialityService;
+	}
+	
+	
+@Override
 	public Set<Vet> findAll() {
 		return super.findAll();
 	}
@@ -22,6 +31,14 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 	
 	@Override
 	public Vet save(Vet object) {
+		if (object.getSpecialities().size() > 0) { // Checks if the Vet that is going to be saved has any speciality
+			object.getSpecialities().forEach(speciality -> { // Loops through all the specialities that the saved vet has
+				if (speciality.getId() == null) { // If one (or more) of the speicialities doesn't have a id value (doesn't exist already)
+					Speciality savedSpeciality = specialityService.save(speciality); // Saves this new Speciality
+					speciality.setId(savedSpeciality.getId()); // And sets a new Id value fo it
+				}
+			});
+		}
 		return super.save(object);
 	}
 
