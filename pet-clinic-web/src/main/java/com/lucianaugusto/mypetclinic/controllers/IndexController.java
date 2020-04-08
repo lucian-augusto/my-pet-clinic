@@ -11,5 +11,11 @@ public class IndexController { // Controller that handles the requests made by t
 		// the index.html file using thymeleaf
 		return "index";
 	}
+	
+	@RequestMapping("/oups")
+	public String oupsHandler() {
+		
+		return "notImplemented";
+	}
 
 }

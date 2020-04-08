@@ -1,11 +1,17 @@
+com/lucianaugusto/mypetclinic/model/Speciality.class
+com/lucianaugusto/mypetclinic/services/map/PetTypeMapService.class
 com/lucianaugusto/mypetclinic/model/Vet.class
 com/lucianaugusto/mypetclinic/services/CrudService.class
+com/lucianaugusto/mypetclinic/services/map/SpecialityMapService.class
+com/lucianaugusto/mypetclinic/services/SpecialityService.class
+com/lucianaugusto/mypetclinic/services/PetTypeService.class
 com/lucianaugusto/mypetclinic/model/Person.class
 com/lucianaugusto/mypetclinic/services/OwnerService.class
 com/lucianaugusto/mypetclinic/services/map/PetServiceMap.class
 com/lucianaugusto/mypetclinic/services/map/AbstractMapService.class
 com/lucianaugusto/mypetclinic/model/Owner.class
 com/lucianaugusto/mypetclinic/services/map/OwnerServiceMap.class
+com/lucianaugusto/mypetclinic/model/Visit.class
 com/lucianaugusto/mypetclinic/services/VetService.class
 com/lucianaugusto/mypetclinic/model/Pet.class
 com/lucianaugusto/mypetclinic/model/BaseEntity.class

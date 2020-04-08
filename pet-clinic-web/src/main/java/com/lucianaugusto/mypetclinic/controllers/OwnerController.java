@@ -27,4 +27,11 @@ public class OwnerController {
 		// findAll() method.
 		return "owners/index";
 	}
+	
+//	Setting up a placeholder for the "find owners" page fixing the broken link
+	@RequestMapping("/find")
+	public String findOwners() {
+		
+		return "notImplemented";
+	}
 }
