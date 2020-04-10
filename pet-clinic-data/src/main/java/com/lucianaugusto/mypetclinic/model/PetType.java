@@ -1,8 +1,15 @@
 package com.lucianaugusto.mypetclinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "types")
 public class PetType extends BaseEntity {
 
 //	Fields
+	@Column(name = "name")
 	private String name;
 
 	
