@@ -6,4 +6,5 @@ import com.lucianaugusto.mypetclinic.model.Owner;
 
 public interface OwnerRepository extends CrudRepository<Owner, Long> {
 
+	Owner findByLastName(String lastNAme);
 }
