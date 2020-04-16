@@ -10,11 +10,11 @@ import com.lucianaugusto.mypetclinic.services.SpecialityService;
 import com.lucianaugusto.mypetclinic.services.VetService;
 
 @Service // Using service and not @Component because it clearly states the behaviour of this service
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
 	
 	private final SpecialityService specialityService;
 	
-	public VetServiceMap(SpecialityService specialityService) {
+	public VetMapService(SpecialityService specialityService) {
 		this.specialityService = specialityService;
 	}
 	

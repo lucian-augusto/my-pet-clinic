@@ -8,7 +8,7 @@ import com.lucianaugusto.mypetclinic.model.Pet;
 import com.lucianaugusto.mypetclinic.services.PetService;
 
 @Service // Using service and not @Component because it clearly states the behaviour of this service
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
+public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
 
 	@Override
 	public Set<Pet> findAll() {

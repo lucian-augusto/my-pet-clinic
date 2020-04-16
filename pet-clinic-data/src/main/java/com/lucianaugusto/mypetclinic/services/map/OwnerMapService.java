@@ -11,14 +11,14 @@ import com.lucianaugusto.mypetclinic.services.PetService;
 import com.lucianaugusto.mypetclinic.services.PetTypeService;
 
 @Service // Using service and not @Component because it clearly states the behaviour of this service
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 	
 //	Fields
 	private final PetTypeService petTypeService;
 	private final PetService petService;
 	
 //	Constructor
-	public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
+	public OwnerMapService(PetTypeService petTypeService, PetService petService) {
 	super();
 	this.petTypeService = petTypeService;
 	this.petService = petService;
