@@ -10,10 +10,12 @@ import com.lucianaugusto.mypetclinic.model.Pet;
 import com.lucianaugusto.mypetclinic.model.PetType;
 import com.lucianaugusto.mypetclinic.model.Speciality;
 import com.lucianaugusto.mypetclinic.model.Vet;
+import com.lucianaugusto.mypetclinic.model.Visit;
 import com.lucianaugusto.mypetclinic.services.OwnerService;
 import com.lucianaugusto.mypetclinic.services.PetTypeService;
 import com.lucianaugusto.mypetclinic.services.SpecialityService;
 import com.lucianaugusto.mypetclinic.services.VetService;
+import com.lucianaugusto.mypetclinic.services.VisitService;
 
 @Component // By annotating this as a component, this becomes a spring bean and gets registered into the spring context
 public class DataLoader implements CommandLineRunner {
@@ -22,15 +24,18 @@ public class DataLoader implements CommandLineRunner {
 	private final VetService vetService;
 	private final PetTypeService petTypeService;
 	private final SpecialityService specialityService;
+	private final VisitService visitService;
 
 	public DataLoader(OwnerService ownerService, VetService vetService,
-			PetTypeService petTypeService, SpecialityService specialityService) { // Takes any implementations of both interfaces and
+			PetTypeService petTypeService, SpecialityService specialityService,
+			VisitService visitService) { // Takes any implementations of both interfaces and
 		// bring them into the context by using Spring to inject the dependencies. Constructor-based Dependency Injection,
 		// doesn't require the @Autowired annotation.
 		this.ownerService = ownerService;
 		this.vetService = vetService;
 		this.petTypeService = petTypeService;
 		this.specialityService = specialityService;
+		this.visitService = visitService;
 	}
 
 	@Override
@@ -102,7 +107,14 @@ public class DataLoader implements CommandLineRunner {
 				
 				ownerService.save(owner2);
 				
-				System.out.println("Loaded Owner...");
+				Visit catVisit = new Visit();
+				catVisit.setPet(fionasCat);
+				catVisit.setDate(LocalDate.now());
+				catVisit.setDescription("Sneezy Kitty");
+				
+				visitService.save(catVisit);
+				
+				System.out.println("Loaded Owners...");
 				
 		//		Vets Data loader
 				Vet vet1 = new Vet();
