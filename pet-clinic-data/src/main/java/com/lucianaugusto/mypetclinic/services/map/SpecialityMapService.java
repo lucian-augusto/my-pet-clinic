@@ -2,12 +2,14 @@ package com.lucianaugusto.mypetclinic.services.map;
 
 import java.util.Set;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.lucianaugusto.mypetclinic.model.Speciality;
 import com.lucianaugusto.mypetclinic.services.SpecialityService;
 
 @Service // Using service and not @Component because it clearly states the behaviour of this service
+@Profile({"default", "map"}) // Annotating the Map Services as default (explicitly) and giving it its own profile name
 public class SpecialityMapService extends AbstractMapService<Speciality, Long>  implements SpecialityService {
 
 	@Override
