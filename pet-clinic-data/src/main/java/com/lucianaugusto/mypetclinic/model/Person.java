@@ -3,6 +3,15 @@ package com.lucianaugusto.mypetclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass // Establishes this as a base class to JPA (No table is created in the DB)
 public class Person extends BaseEntity {
 
@@ -12,19 +21,11 @@ public class Person extends BaseEntity {
 	
 	@Column(name = "last_name") // Explicitly telling Hibernate how to name the column (snake_case)
 	private String lastName;
-	
-	
-//	Getters and Setters
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
+
+	public Person(Long id, String firstName, String lastName) {
+		super(id);
 		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
 }

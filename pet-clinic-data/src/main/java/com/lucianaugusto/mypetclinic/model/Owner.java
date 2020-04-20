@@ -9,6 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "owners") // Explicitly telling Hibernate to name the table related to this entity as "owners"
 public class Owner extends Person {
@@ -25,31 +36,16 @@ public class Owner extends Person {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner") // Setting up the relationship between Owner and Pet
 	private Set<Pet> pets = new HashSet<Pet>(); // Initializing the Set of Pets with a default value to avoid null pointer errors
-	
-//	Getters and Setters
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
+
+	@Builder
+	public Owner(Long id, String firstName, String lastName, String address, String city, String telephone,
+			Set<Pet> pets) {
+		super(id, firstName, lastName);
 		this.address = address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
 		this.city = city;
-	}
-	public String getTelephone() {
-		return telephone;
-	}
-	public void setTelephone(String telephoneString) {
-		this.telephone = telephoneString;
-	}
-	public Set<Pet> getPets() {
-		return pets;
-	}
-	public void setPets(Set<Pet> pets) {
+		this.telephone = telephone;
 		this.pets = pets;
 	}
+
 	
 }
