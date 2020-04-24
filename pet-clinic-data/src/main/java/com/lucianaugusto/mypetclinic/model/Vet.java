@@ -20,7 +20,6 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
@@ -33,4 +32,9 @@ public class Vet extends Person {
 			// relationship is defined at the DB level
 	private Set<Speciality> specialities = new HashSet<Speciality>(); // Initializing the Set of Pets with a default value to avoid null pointer errors
 
+	@Builder
+	public Vet(Long id, String firstName, String lastName, Set<Speciality> specialities) {
+		super(id, firstName, lastName);
+		this.specialities = specialities;
+	}
 }
