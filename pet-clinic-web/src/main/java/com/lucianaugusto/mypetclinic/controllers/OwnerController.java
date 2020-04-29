@@ -13,7 +13,7 @@ public class OwnerController {
 //	Getting a handle of the Owner service
 	private final OwnerService ownerService; // Object declared as final so it can never be changed.
 
-//	Constructor(-based Injection - Best Practice)
+//	Constructor(Constructor-based Injection - Best Practice)
 	public OwnerController(OwnerService ownerService) {
 	super();
 	this.ownerService = ownerService;
