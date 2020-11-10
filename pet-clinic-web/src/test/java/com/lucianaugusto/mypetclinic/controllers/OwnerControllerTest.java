@@ -1,5 +1,6 @@
 package com.lucianaugusto.mypetclinic.controllers;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -14,6 +15,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -72,6 +74,16 @@ public class OwnerControllerTest {
 			.andExpect(view().name("notImplemented"));
 		
 		verifyZeroInteractions(ownerService);
+	}
+	
+	@Test
+	public void testShowOwner() throws Exception {
+		when(ownerService.findById(ArgumentMatchers.anyLong())).thenReturn(Owner.builder().id(7L).build());
+		
+		mockMvc.perform(get("/owners/7"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("owners/ownerDetails"))
+			.andExpect(model().attribute("owner", Matchers.hasProperty("id", is(7L))));
 	}
 
 }
