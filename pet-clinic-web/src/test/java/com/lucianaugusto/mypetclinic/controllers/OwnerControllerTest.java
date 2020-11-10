@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,32 +49,32 @@ public class OwnerControllerTest {
 	}
 
 	@Test
-	public void testListOwners() throws Exception {
-		when(ownerService.findAll()).thenReturn(owners);
-		
-		mockMvc.perform(get("/owners"))
-			.andExpect(status().isOk()) // Expects a returned status of 200
-			.andExpect(view().name("owners/index"))
-			.andExpect(model().attribute("owners", Matchers.hasSize(2)));
-	}
-	
-	@Test
-	public void testListOwnersByIndex() throws Exception {
-		when(ownerService.findAll()).thenReturn(owners);
-		
-		mockMvc.perform(get("/owners/index"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("owners/index"))
-			.andExpect(model().attribute("owners", Matchers.hasSize(2)));
-	}
-
-	@Test
 	public void testFindOwners() throws Exception {
 		mockMvc.perform(get("/owners/find"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("notImplemented"));
+			.andExpect(view().name("owners/findOwners"))
+			.andExpect(model().attributeExists("owner"));
 		
 		verifyZeroInteractions(ownerService);
+	}
+	
+	@Test
+	public void testProcessFormReturnMany() throws Exception {
+		when(ownerService.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build(), Owner.builder().id(123L).build()));
+		
+		mockMvc.perform(get("/owners"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("owners/ownersList"))
+			.andExpect(model().attribute("foundOwners", Matchers.hasSize(2)));
+	}
+	
+	@Test
+	public void testProcessFormReturnOne() throws Exception {
+		when(ownerService.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build()));
+		
+		mockMvc.perform(get("/owners"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/owners/7"));
 	}
 	
 	@Test

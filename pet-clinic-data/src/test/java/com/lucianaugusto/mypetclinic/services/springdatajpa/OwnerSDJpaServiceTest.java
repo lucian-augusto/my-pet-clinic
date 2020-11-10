@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,8 +29,8 @@ import com.lucianaugusto.mypetclinic.repositories.PetTypeRepository;
 @ExtendWith(MockitoExtension.class)
 public class OwnerSDJpaServiceTest {
 
-	final String LAST_NAME = "Doe";
-	final Long ownerId = 1L;
+	private final String LAST_NAME = "Doe";
+	private final Long ownerId = 1L;
 	Owner owner;
 	
 	@Mock
@@ -114,6 +116,23 @@ public class OwnerSDJpaServiceTest {
 		assertEquals(LAST_NAME, doe.getLastName());
 		
 		verify(ownerRepository).findByLastName(ArgumentMatchers.any());
+	}
+	
+	@Test
+	public void testFindAllByLastName() throws Exception {
+		Owner owner2 = Owner.builder().id(7L).lastName(LAST_NAME).build();
+		List<Owner> owners = new LinkedList<>();
+		owners.add(owner);
+		owners.add(owner2);
+		when(ownerRepository.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(owners);
+		
+		List<Owner> foundOwners = ownerService.findAllByLastName(LAST_NAME);
+		
+		assertEquals(2, foundOwners.size());
+		assertEquals(LAST_NAME, foundOwners.get(0).getLastName());
+		assertEquals(LAST_NAME, foundOwners.get(1).getLastName());
+		
+		verify(ownerRepository).findAllByLastName(ArgumentMatchers.anyString());
 	}
 
 }

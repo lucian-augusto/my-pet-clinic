@@ -1,10 +1,14 @@
 package com.lucianaugusto.mypetclinic.repositories;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.lucianaugusto.mypetclinic.model.Owner;
 
 public interface OwnerRepository extends CrudRepository<Owner, Long> {
 
-	Owner findByLastName(String lastNAme);
+	Owner findByLastName(String lastName);
+	
+	List<Owner> findAllByLastName(String lastName);
 }

@@ -1,6 +1,7 @@
 package com.lucianaugusto.mypetclinic.services.springdatajpa;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.Profile;
@@ -61,7 +62,11 @@ public class OwnerSDJpaService implements OwnerService {
 	public Owner findByLastName(String lasNameString) {
 		return ownerRepository.findByLastName(lasNameString);
 	}
-	
-	
+
+	@Override
+	public List<Owner> findAllByLastName(String lastName) {
+		return ownerRepository.findAllByLastName(lastName);
+	}
+	 
 
 }

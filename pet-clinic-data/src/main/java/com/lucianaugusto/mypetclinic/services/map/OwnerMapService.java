@@ -1,5 +1,6 @@
 package com.lucianaugusto.mypetclinic.services.map;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.Profile;
@@ -81,5 +82,13 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
 				.findFirst()
 				.orElse(null);
 	}
+
+
+	@Override
+	public List<Owner> findAllByLastName(String lastName) {
+		// TODO Implement 
+		return null;
+	}
+	
 	
 }
