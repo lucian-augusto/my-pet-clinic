@@ -1,9 +1,11 @@
 package com.lucianaugusto.mypetclinic.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -85,6 +87,53 @@ public class OwnerControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(view().name("owners/ownerDetails"))
 			.andExpect(model().attribute("owner", Matchers.hasProperty("id", is(7L))));
+	}
+	
+	@Test
+	public void testCreateNewOwnerForm() throws Exception {
+		mockMvc.perform(get("/owners/new"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("owners/createOrUpdateOwnerForm"))
+			.andExpect(model().attributeExists("owner"));
+		
+		verifyZeroInteractions(ownerService );
+	}
+	
+	@Test
+	public void testCreateNewOwner() throws Exception {
+		when(ownerService.save(ArgumentMatchers.any(Owner.class))).thenReturn(Owner.builder().id(7L).build());
+		
+		mockMvc.perform(post("/owners/new"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/owners/7"))
+			.andExpect(model().attributeExists("owner"));
+		
+		verify(ownerService).save(ArgumentMatchers.any(Owner.class));
+	}
+	
+	@Test
+	public void testUpdateOwnerForm() throws Exception {
+		when(ownerService.findById(ArgumentMatchers.anyLong())).thenReturn(Owner.builder().id(7L).build());
+		
+		mockMvc.perform(get("/owners/7/edit"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("owners/createOrUpdateOwnerForm"))
+			.andExpect(model().attributeExists("owner"));
+		
+		verify(ownerService).findById(7L);
+	}
+	
+	@Test
+	public void testUpdateOwner() throws Exception {
+		Owner owner = Owner.builder().id(7L).build();
+		when(ownerService.save(ArgumentMatchers.any(Owner.class))).thenReturn(owner);
+		
+		mockMvc.perform(post("/owners/7/edit"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/owners/7"))
+			.andExpect(model().attribute("owner", Matchers.hasProperty("id", is(7L))));
+		
+		verify(ownerService).save(ArgumentMatchers.any(Owner.class));
 	}
 
 }

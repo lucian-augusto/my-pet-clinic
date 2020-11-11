@@ -23,4 +23,8 @@ public class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Setting up this field as an Id to the JPA and setting up automated value generation
 	private Long id;
+	
+	public boolean isNew() {
+		return this.id == null;
+	}
 }
