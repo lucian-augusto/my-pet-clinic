@@ -119,20 +119,20 @@ public class OwnerSDJpaServiceTest {
 	}
 	
 	@Test
-	public void testFindAllByLastName() throws Exception {
-		Owner owner2 = Owner.builder().id(7L).lastName(LAST_NAME).build();
-		List<Owner> owners = new LinkedList<>();
-		owners.add(owner);
-		owners.add(owner2);
-		when(ownerRepository.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(owners);
-		
-		List<Owner> foundOwners = ownerService.findAllByLastName(LAST_NAME);
-		
-		assertEquals(2, foundOwners.size());
-		assertEquals(LAST_NAME, foundOwners.get(0).getLastName());
-		assertEquals(LAST_NAME, foundOwners.get(1).getLastName());
-		
-		verify(ownerRepository).findAllByLastName(ArgumentMatchers.anyString());
-	}
+		public void testFindAllByLastNameLike() throws Exception {
+			Owner owner2 = Owner.builder().id(7L).lastName(LAST_NAME).build();
+			List<Owner> owners = new LinkedList<>();
+			owners.add(owner);
+			owners.add(owner2);
+			when(ownerRepository.findAllByLastNameLike(ArgumentMatchers.anyString())).thenReturn(owners);
+			
+			List<Owner> foundOwners = ownerService.findAllByLastNameLike(LAST_NAME);
+			
+			assertEquals(2, foundOwners.size());
+			assertEquals(LAST_NAME, foundOwners.get(0).getLastName());
+			assertEquals(LAST_NAME, foundOwners.get(1).getLastName());
+			
+			verify(ownerRepository).findAllByLastNameLike(ArgumentMatchers.anyString());
+		}
 
 }

@@ -60,7 +60,7 @@ public class OwnerControllerTest {
 	
 	@Test
 	public void testProcessFormReturnMany() throws Exception {
-		when(ownerService.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build(), Owner.builder().id(123L).build()));
+		when(ownerService.findAllByLastNameLike(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build(), Owner.builder().id(123L).build()));
 		
 		mockMvc.perform(get("/owners"))
 			.andExpect(status().isOk())
@@ -70,7 +70,7 @@ public class OwnerControllerTest {
 	
 	@Test
 	public void testProcessFormReturnOne() throws Exception {
-		when(ownerService.findAllByLastName(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build()));
+		when(ownerService.findAllByLastNameLike(ArgumentMatchers.anyString())).thenReturn(Arrays.asList(Owner.builder().id(7L).build()));
 		
 		mockMvc.perform(get("/owners"))
 			.andExpect(status().is3xxRedirection())
