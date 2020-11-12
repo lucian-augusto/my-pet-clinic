@@ -53,12 +53,12 @@ public class VisitController {
 	}
 	
 	@PostMapping("/visits/new")
-	public String createVisit(@Valid Visit visit, BindingResult result, Owner owner) {
+	public String createVisit(@Valid Visit visit, BindingResult result) {
 		if (result.hasErrors()) {
 			return "pets/createOrUpdateVisitForm";
 		}
 		visitService.save(visit);
 		
-		return "redirect:/owners/" + owner.getId();
+		return "redirect:/owners/" + visit.getPet().getOwner().getId();
 	}
 }
