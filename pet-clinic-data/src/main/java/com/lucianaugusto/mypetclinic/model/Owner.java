@@ -35,7 +35,7 @@ public class Owner extends Person {
 	private String telephone;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner") // Setting up the relationship between Owner and Pet
-	private Set<Pet> pets = new HashSet<Pet>(); // Initializing the Set of Pets with a default value to avoid null pointer errors
+	private Set<Pet> pets = new HashSet<>(); // Initializing the Set of Pets with a default value to avoid null pointer errors
 
 	@Builder
 	public Owner(Long id, String firstName, String lastName, String address, String city, String telephone,
@@ -44,8 +44,29 @@ public class Owner extends Person {
 		this.address = address;
 		this.city = city;
 		this.telephone = telephone;
-		this.pets = pets;
+		
+		if (pets != null) {
+			 this.pets = pets;
+		}
 	}
 
+	public Pet getPet(String petName) {
+		return getPet(petName, false);
+	}
 	
+	public Pet getPet(String petName, boolean ignoreNew) {
+		petName = petName.toLowerCase();
+		
+		for (Pet pet : pets) {
+			
+			if(!ignoreNew || !pet.isNew()) {
+				String nameComparator = pet.getName().toLowerCase();
+				
+				if (nameComparator.equals(petName)) {
+					return pet;
+				}
+			}
+		}
+		return null;
+	}
 }
