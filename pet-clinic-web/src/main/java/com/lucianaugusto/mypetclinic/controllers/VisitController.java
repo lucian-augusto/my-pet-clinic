@@ -1,5 +1,8 @@
 package com.lucianaugusto.mypetclinic.controllers;
 
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lucianaugusto.mypetclinic.model.Owner;
 import com.lucianaugusto.mypetclinic.model.Pet;
 import com.lucianaugusto.mypetclinic.model.Visit;
 import com.lucianaugusto.mypetclinic.services.PetService;
@@ -25,18 +27,25 @@ public class VisitController {
 
 	private final VisitService visitService;
 	private final PetService petService;
-	
+
 	public VisitController(VisitService visitService, PetService petService) {
 		super();
 		this.visitService = visitService;
 		this.petService = petService;
 	}
-	
+
 	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
+	public void dataBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+		dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException {
+				setValue(LocalDate.parse(text));
+			}
+
+		});
 	}
-	
+
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("petId") Long petId, Model model) {
 		Pet pet = petService.findById(petId);
@@ -46,19 +55,19 @@ public class VisitController {
 		visit.setPet(pet);
 		return visit;
 	}
-	
+
 	@GetMapping("/visits/new")
 	public String createVisitForm(@PathVariable Long petId, Model model) {
 		return "pets/createOrUpdateVisitForm";
 	}
-	
+
 	@PostMapping("/visits/new")
 	public String createVisit(@Valid Visit visit, BindingResult result) {
 		if (result.hasErrors()) {
 			return "pets/createOrUpdateVisitForm";
 		}
 		visitService.save(visit);
-		
+
 		return "redirect:/owners/" + visit.getPet().getOwner().getId();
 	}
 }
